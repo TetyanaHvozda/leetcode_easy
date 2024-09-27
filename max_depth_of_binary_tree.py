@@ -6,23 +6,13 @@ class TreeNode(object):
 
 
 class Solution(object):
-    def isSymmetric(self, root):
-
-        def recursive(leftroot, rightroot):
-            if not leftroot and not rightroot:
-                return True
-
-            if not leftroot or not rightroot:
-                return False
-
-            if leftroot.val != rightroot.val:
-                return False
-
-            return recursive(leftroot.left, rightroot.right) and recursive(leftroot.right, rightroot.left)
-
-        return recursive(root.left, root.right)
+    def maxDepth(self, root):
+        if not root:
+            return 0
+        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
 
 
+# Helper function to create a tree from a list representation
 def create_tree_from_list(lst):
     if not lst:
         return None
@@ -45,12 +35,12 @@ def create_tree_from_list(lst):
 # Example usage
 if __name__ == "__main__":
     # Create trees from lists
-    root1 = create_tree_from_list([1, 2, 2, 3, 4, 4, 3])
-    root2 = create_tree_from_list([1, 2, 2, None, 3, None, 3])
+    root1 = create_tree_from_list([3, 9, 20, None, None, 15, 7])
+    root2 = create_tree_from_list([1, None, 2])
 
     # Create a Solution object
     solution = Solution()
 
-    # Check if the trees are symmetric
-    print(solution.isSymmetric(root1))  # Output: True
-    print(solution.isSymmetric(root2))  # Output: False
+    # Check the maximum depth of the trees
+    print(solution.maxDepth(root1))  # Output: 3
+    print(solution.maxDepth(root2))  # Output: 2
