@@ -9,7 +9,7 @@ class TreeNode(object):
         self.right = right
 
 class Solution(object):
-    def inorderTraversal(self, root):
+    def preorderTraversal(self, root):
         """
         :type root: TreeNode
         :rtype: List[int]
@@ -21,12 +21,10 @@ class Solution(object):
         while current or stack:
             while current:
                 stack.append(current)
+                result.append(current.val)
                 current = current.left
-
             current = stack.pop()
-            result.append(current.val)
             current = current.right
-
         return result
 
 
@@ -68,7 +66,7 @@ root = build_tree_from_list(root_list)
 solution = Solution()
 
 # Getting the inorder traversal of the tree
-output = solution.inorderTraversal(root)
+output = solution.preorderTraversal(root)
 
 # Output the result
-print(output)  # Expected Output: [4, 2, 6, 5, 7, 1, 3, 9, 8]
+print(output)  # Expected Output: [1,2,4,5,6,7,3,8,9]
