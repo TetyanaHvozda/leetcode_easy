@@ -1,27 +1,24 @@
-# Definition for a binary tree node.
 from collections import deque
-
-
+# Definition for a binary tree node.
 class TreeNode(object):
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
-
 class Solution(object):
-    def preorderTraversal(self, root):
-        stack = []
+    def postorderTraversal(self, root):
+        if not root:
+            return []
+        stack = [root]
         result = []
-        current = root
-        while current or stack:
-            while current:
-                stack.append(current)
-                result.append(current.val)
-                current = current.left
-            current = stack.pop()
-            current = current.right
-        return result
-
+        while stack:
+            node = stack.pop()
+            result.append(node.val)
+            if node.left:
+                stack.append(node.left)
+            if node.right:
+                stack.append(node.right)
+        return result[::-1]
 
 
 # Helper function to build the binary tree from a list
@@ -61,7 +58,7 @@ root = build_tree_from_list(root_list)
 solution = Solution()
 
 # Getting the inorder traversal of the tree
-output = solution.preorderTraversal(root)
+output = solution.postorderTraversal(root)
 
 # Output the result
-print(output)  # Expected Output: [1,2,4,5,6,7,3,8,9]
+print(output) #[4,6,7,5,2,9,8,3,1]
